@@ -18,16 +18,16 @@ export interface Product {
 interface ProductCardProps {
   product: Product;
   onAddToCart: (product: Product) => void;
-  onViewDetails: (product: Product) => void;
+  onClick: (product: Product) => void;
 }
 
-export function ProductCard({ product, onAddToCart, onViewDetails }: ProductCardProps) {
+export function ProductCard({ product, onAddToCart, onClick }: ProductCardProps) {
   return (
-    <Card className="overflow-hidden border-0 shadow-sm">
+    <Card className="overflow-hidden border-0 shadow-sm dark:bg-gray-800">
       <div className="relative">
         <div 
-          className="aspect-square bg-gray-100 cursor-pointer"
-          onClick={() => onViewDetails(product)}
+          className="aspect-square bg-gray-100 dark:bg-gray-700 cursor-pointer"
+          onClick={() => onClick(product)}
         >
           <img 
             src={product.image} 
@@ -41,19 +41,19 @@ export function ProductCard({ product, onAddToCart, onViewDetails }: ProductCard
           </Badge>
         )}
         <button
-          className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors"
+          className="absolute top-2 right-2 p-2 bg-white dark:bg-gray-700 rounded-full shadow-md hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
           aria-label="Add to wishlist"
         >
-          <Heart className="w-4 h-4 text-gray-600" />
+          <Heart className="w-4 h-4 text-gray-600 dark:text-gray-300" />
         </button>
       </div>
       
       <div className="p-3">
         <div 
           className="cursor-pointer mb-1"
-          onClick={() => onViewDetails(product)}
+          onClick={() => onClick(product)}
         >
-          <h3 className="line-clamp-2 mb-1">{product.name}</h3>
+          <h3 className="line-clamp-2 mb-1 dark:text-white">{product.name}</h3>
         </div>
         
         <div className="flex items-center gap-1 mb-2">
@@ -64,18 +64,18 @@ export function ProductCard({ product, onAddToCart, onViewDetails }: ProductCard
                 className={`w-3 h-3 ${
                   i < Math.floor(product.rating)
                     ? "fill-yellow-400 text-yellow-400"
-                    : "text-gray-300"
+                    : "text-gray-300 dark:text-gray-600"
                 }`}
               />
             ))}
           </div>
-          <span className="text-xs text-gray-500">({product.reviews})</span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">({product.reviews})</span>
         </div>
         
         <div className="flex items-center gap-2 mb-3">
-          <span className="font-semibold text-lg">${product.price}</span>
+          <span className="font-semibold text-lg dark:text-white">${product.price}</span>
           {product.originalPrice && (
-            <span className="text-sm text-gray-400 line-through">
+            <span className="text-sm text-gray-400 dark:text-gray-500 line-through">
               ${product.originalPrice}
             </span>
           )}

@@ -18,6 +18,7 @@ import { Badge } from "./components/ui/badge";
 import { Input } from "./components/ui/input";
 import { toast } from "sonner";
 import { Toaster } from "./components/ui/sonner";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 // Shopping App - Mobile Optimized
 const CATEGORIES = ["All", "Audio", "Wearables", "Accessories", "Computers", "Photography"];
@@ -108,6 +109,14 @@ const PRODUCTS: Product[] = [
 ];
 
 export default function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
+}
+
+function AppContent() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -210,25 +219,25 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
       <Toaster />
 
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-white shadow-sm">
+      <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 shadow-sm">
         <div className="px-4 py-3">
           <div className="flex items-center justify-between mb-3">
             <button
               onClick={() => setIsMenuOpen(true)}
-              className="p-2 -ml-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-2 -ml-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-6 h-6 dark:text-white" />
             </button>
-            <h1 className="text-xl">ShopHub</h1>
+            <h1 className="text-xl dark:text-white">ShopHub</h1>
             <button
               onClick={() => setIsCartOpen(true)}
-              className="p-2 -mr-2 hover:bg-gray-100 rounded-full transition-colors relative"
+              className="p-2 -mr-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors relative"
             >
-              <ShoppingCart className="w-6 h-6" />
+              <ShoppingCart className="w-6 h-6 dark:text-white" />
               {totalItems > 0 && (
                 <Badge className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs">
                   {totalItems}
@@ -283,7 +292,7 @@ export default function App() {
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">No products found</p>
+            <p className="text-gray-500 dark:text-gray-400">No products found</p>
           </div>
         )}
       </main>
